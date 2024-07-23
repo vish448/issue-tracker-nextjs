@@ -1,6 +1,7 @@
 import React from 'react'
 import {Table} from '@radix-ui/themes'
 import Link from '../components/Link'
+import axios from 'axios'
 import prisma from '@/prisma/client'
 import IssueStatusBadge from '../components/IssueStatusBadge'
 import delay from 'delay'
@@ -29,9 +30,9 @@ const Issues = async() => {
              <Table.Row key={issue.id}>
              <Table.Cell>
               <Link href={`/issues/${issue.id}`} >
-              {issue.title}
-              <div className='block md:hidden'><IssueStatusBadge status={issue.status} /></div>
+              {issue.title} 
               </Link>
+              <div className='block md:hidden'><IssueStatusBadge status={issue.status} /></div>
              </Table.Cell>
              <Table.Cell className='hidden md:table-cell'><IssueStatusBadge status={issue.status} /></Table.Cell>
              <Table.Cell className='hidden md:table-cell'>{issue.createdAt.toDateString()}</Table.Cell>

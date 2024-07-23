@@ -22,7 +22,6 @@ const NewIssuePage = () => {
     })
     const [error, setError] = useState('')
     const [isSubmitting, setSubmitting] = useState(false)
-
   return (
     <div className='max-w-xl' >
         { error && (<Callout.Root color='red' className='mb-5'>
