@@ -1,14 +1,16 @@
-import '@radix-ui/themes/styles.css'
-import './theme.config.css'
+import "@radix-ui/themes/styles.css";
+import "./theme.config.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "./NavBar";
-import {Theme, ThemePanel} from '@radix-ui/themes'
+import { Container, Theme, ThemePanel } from "@radix-ui/themes";
+import AuthProvider from "./auth/Provider";
+import QueryClientProvider from "./QueryClientProvider";
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin"],
-  variable: '--font-inter'
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -24,14 +26,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.variable}>
-        <Theme>
-          <NavBar />
-          <main className='p-5'>
-            {children}
-          </main>
-        </Theme>
-      
-        </body>
+        <QueryClientProvider>
+          <AuthProvider>
+            <Theme>
+              <NavBar />
+              <main className="p-5">
+                <Container>{children}</Container>
+              </main>
+            </Theme>
+          </AuthProvider>
+        </QueryClientProvider>
+      </body>
     </html>
   );
 }

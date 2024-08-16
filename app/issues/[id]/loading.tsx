@@ -12,6 +12,7 @@ const LoadingIssueDetailsPage = () => {
     <Card className='mt-5 prose'>
       <Skeleton count={3} />
     </Card>
+    <Skeleton width="3rem"/>
   </Box>
   )
 }

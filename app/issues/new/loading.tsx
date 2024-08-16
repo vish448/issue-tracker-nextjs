@@ -9,6 +9,7 @@ const LoadingNewIssuePage = () => {
             loading...
         <Skeleton />
         <Skeleton height="20rem" />
+        <Skeleton className='mt-5' height="2rem"/>
     </Box>
   )
 }
