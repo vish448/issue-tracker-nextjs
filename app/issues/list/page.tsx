@@ -5,6 +5,7 @@ import { Link, IssueStatusBadge } from "@/app/components";
 import { Issue, Status } from "@prisma/client";
 import NextLink from "next/link";
 import { ArrowUpIcon } from "@radix-ui/react-icons";
+
 const columns: { label: string; value: keyof Issue; className?: string }[] = [
   { label: "Issue", value: "title" },
   { label: "Status", value: "status", className: "hidden md:table-cell" },
@@ -19,11 +20,13 @@ const Issues = async ({
   const status = statuses.includes(searchParams.status)
     ? searchParams.status
     : undefined;
-
+  
+  const orderBy = columns.map(column=> column.value).includes(searchParams.orderBy) ? {[searchParams.orderBy]:'asc'} : undefined
   const issues = await prisma.issue.findMany({
     where: {
       status,
     },
+    orderBy
   });
   return (
     <div>
@@ -36,7 +39,7 @@ const Issues = async ({
             <Table.Row>
               {columns.map((column) => (
                 <Table.ColumnHeaderCell key={column.value}>
-                  <NextLink href={{query:{...searchParams, orderBy:column.value}}}>
+                  <NextLink href={{query:{ ...searchParams, orderBy:column.value}}}>
                     {column.label}
                   </NextLink>
                   {column.value === searchParams.orderBy && <ArrowUpIcon className="inline"/>}
