@@ -3,6 +3,7 @@ import prisma from "@/prisma/client";
 import { Status } from "@prisma/client";
 import IssueActions from "./IssueActions";
 import IssueTable, { columnNames, IssueQuery } from "./IssueTable";
+import { Flex } from "@radix-ui/themes";
 
 interface Props {
   searchParams :IssueQuery
@@ -21,7 +22,7 @@ const Issues = async (
     : undefined;
 
   const page = parseInt(searchParams.page) || 1;
-  const pageSize = 10;
+  const pageSize = 5;
   const issues = await prisma.issue.findMany({
     where: {
       status,
@@ -31,9 +32,8 @@ const Issues = async (
     take: pageSize,
   });
   const issueCount = await prisma.issue.count({ where: { status } });
-  console.log("Icount", issueCount, "  page", page, "  pageSize", pageSize);
   return (
-    <div>
+    <Flex gap="4" direction="column">
       <IssueActions />
       {issues.length == 0 ? (
         "No Issues"
@@ -47,7 +47,7 @@ const Issues = async (
           />
         </>
       )}
-    </div>
+    </Flex>
   );
 };
 
